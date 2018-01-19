@@ -145,6 +145,42 @@ const actors = [{
   }]
 }];
 
+function getPrice()
+{
+	for(var d= 0; d<deliveries.length; d++)
+	{
+		var ppk;
+		var ppm;
+		var reduction = 1;
+		var price;
+		var priceWithRed;
+		for(var t=0;t<truckers.length;t++)
+		{
+			if (deliveries[d].truckerId == truckers[t].id)
+			{
+				ppk = truckers[t].pricePerKm;
+				ppm = truckers[t].pricePerVolume;
+			}
+		}
+		if( deliveries[d].volume> 5 && deliveries[d].volume < 10)
+		{
+			reduction = 10/100;
+		}
+		if(deliveries[d].volume > 10 && deliveries[d].volume < 25)
+		{
+			reduction = 30/100;
+		}
+		if(deliveries[d].volume > 25)
+		{
+			reduction = 50/100;
+		}
+		price = ppk * deliveries[d].distance + ppm * deliveries[d].volume;
+		priceWithRed = price * reduction;
+		alert("Le prix est " + priceWithRed);
+	}
+}
+getPrice();
+
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
