@@ -151,12 +151,15 @@ function getPrice()
 	{
 		var ppk;
 		var ppm;
-		var reduction = 1;
-		var price;
 		var priceWithRed;
+		var comission;
+		var taxeAssurance;
+		var taxeTresor;
+		var taxeConvargo;
+		
 		for(var t=0;t<truckers.length;t++)
 		{
-			if (deliveries[d].truckerId == truckers[t].id)
+			if (deliveries[d].truckerId === truckers[t].id)
 			{
 				ppk = truckers[t].pricePerKm;
 				ppm = truckers[t].pricePerVolume;
@@ -164,19 +167,29 @@ function getPrice()
 		}
 		if( deliveries[d].volume> 5 && deliveries[d].volume < 10)
 		{
-			reduction = 10/100;
+			ppm = ppm - ppm * 0.1;
 		}
 		if(deliveries[d].volume > 10 && deliveries[d].volume < 25)
 		{
-			reduction = 30/100;
+			ppm = ppm - ppm * 0.3;
 		}
 		if(deliveries[d].volume > 25)
 		{
-			reduction = 50/100;
+			ppm = ppm - ppm * 0.5;
 		}
-		price = ppk * deliveries[d].distance + ppm * deliveries[d].volume;
-		priceWithRed = price * reduction;
-		alert("Le prix est " + priceWithRed);
+		priceWithRed = ppk * deliveries[d].distance + ppm * deliveries[d].volume;
+		
+		comission = 0.3 * priceWithRed;
+		taxeConvargo = comission;
+		
+		taxeAssurance = 0.5 * comission;
+		taxeConvargo = taxeConvargo - taxeAssurance;
+		
+		taxeTresor = 1 + ((deliveries[d].distance - deliveries[d].distance % 500) / 500) ;
+		taxeConvargo = taxeConvargo - taxeTresor;
+		
+		
+		alert("Le prix est " + priceWithRed + "e. La comission est de " + comission + " dont " + taxeAssurance +"e vont a l'assurance, "+ taxeTresor+"e vont au Tresor Public et "+taxeConvargo+"e vont a Convargo.");
 	}
 }
 getPrice();
