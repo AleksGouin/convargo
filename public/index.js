@@ -196,7 +196,7 @@ function getPrice()
 		taxeConvargo = taxeConvargo - taxeTresor;
 		
 		
-		alert("Le prix est " + priceWithRed + "e. La comission est de " + comission + " dont " + taxeAssurance +"e vont a l'assurance, "+ taxeTresor+"e vont au Tresor Public et "+taxeConvargo+"e vont a Convargo.");
+		alert("Le prix est " + priceWithRed + "e. La comission est de " + comission +		" dont " + taxeAssurance +"e vont a l'assurance, "+ taxeTresor+"e vont au Tresor Public et "+taxeConvargo+"e vont a Convargo. De plus, le transporteur recevera "+(priceWithRed - comission)+"e.");
 	}
 }
 getPrice();
