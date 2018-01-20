@@ -156,6 +156,7 @@ function getPrice()
 		var taxeAssurance;
 		var taxeTresor;
 		var taxeConvargo;
+		var deductible = 0;
 		
 		for(var t=0;t<truckers.length;t++)
 		{
@@ -177,7 +178,13 @@ function getPrice()
 		{
 			ppm = ppm - ppm * 0.5;
 		}
-		priceWithRed = ppk * deliveries[d].distance + ppm * deliveries[d].volume;
+		
+		if(deliveries[d].options.deductibleReduction === true)
+		{
+			deductible = deliveries[d].volume;
+		}
+		
+		priceWithRed = ppk * deliveries[d].distance + ppm * deliveries[d].volume + deductible;
 		
 		comission = 0.3 * priceWithRed;
 		taxeConvargo = comission;
